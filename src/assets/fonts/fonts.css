@@ -1,0 +1,23 @@
+@font-face {
+  font-family: 'WorkSans';
+  font-weight: 400;
+  src: url('WorkSans-Regular.ttf');
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'WorkSans';
+  font-weight: 600;
+  src: url('WorkSans-SemiBold.ttf');
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'WorkSans';
+  font-weight: 700;
+  src: url('WorkSans-Bold.ttf');
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,0 +1,38 @@
+@import "./assets/fonts/fonts.css";
+@import "tailwindcss";
+
+/* Определяем пользовательский вариант dark для Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-custom-blue: #21334f;
+  --font-family-worksans: "WorkSans", sans-serif;
+}
+html {
+  scroll-behavior: smooth;
+}
+:root {
+  font-family: "WorkSans", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: #21334f;
+  background-color: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Стили для ссылок теперь управляются через Tailwind */
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* Стили для кнопок теперь управляются через Tailwind */
+
+/* Медиа-запросы теперь управляются через Tailwind */
