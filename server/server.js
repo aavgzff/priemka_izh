@@ -9,10 +9,10 @@ const PORT = 3001
 app.use(cors({
     origin: [
         'http://localhost:5173',
-        'http://192.168.1.169:5173'
+        'http://192.168.1.169:5173',
     ],
     methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type']
+    credentials: true,
 }))
 
 app.use(express.json())
