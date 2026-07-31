@@ -5,12 +5,43 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-custom-blue: #21334f;
+  --color-custom-blue: #008AD3;
   --font-family-worksans: "WorkSans", sans-serif;
+  --color-custom-grey: #201f1f;
+  --color-surface: #f8fafc;
 }
+
 html {
-  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
 }
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ScrollSmoother управляет скроллом — нативный smooth конфликтует */
+html:not(.has-scroll-smooth) {
+  scroll-behavior: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 :root {
   font-family: "WorkSans", sans-serif;
   line-height: 1.5;
@@ -25,14 +56,42 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Стили для ссылок теперь управляются через Tailwind */
-
 body {
-  margin: 0;
   min-width: 320px;
   min-height: 100vh;
 }
 
-/* Стили для кнопок теперь управляются через Tailwind */
+#smooth-wrapper {
+  overflow: hidden;
+}
 
-/* Медиа-запросы теперь управляются через Tailwind */
+#smooth-content {
+  overflow: visible;
+  width: 100%;
+}
+
+/* Ускоряем композитинг для parallax-слоёв */
+.gpu-layer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.will-change-transform {
+  will-change: transform;
+}
+
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 600px;
+}
+
+.contain-paint {
+  contain: paint;
+}
+
+.finishing-services-carousel {
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  /* Оба направления: браузер сам выбирает ось жеста */
+  touch-action: pan-x pan-y pinch-zoom;
+}

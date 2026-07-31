@@ -4,6 +4,10 @@ node_modules/
 # env
 .env
 
+# uploads & local data
+server/uploads/
+server/data/projects.json
+
 # builds
 dist/
 build/

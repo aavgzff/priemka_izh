@@ -1,12 +1,14 @@
 import axios from 'axios'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+
 export const sendForm = async (data) => {
     const res = await axios.post(
-        'http://192.168.1.169:3001/send-form',
+        `${API_URL}/send-form`,
         data,
         {
             headers: { 'Content-Type': 'application/json' },
-            timeout: 10000
+            timeout: 10000,
         }
     )
 

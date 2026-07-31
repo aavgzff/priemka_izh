@@ -10,7 +10,9 @@ export default {
     theme: {
         extend: {
             colors: {
-                'custom-blue': '#21334f',
+                'custom-blue': '#008AD3',
+                'custom-grey': '#201f1f',
+                surface: '#f8fafc',
             },
             fontFamily: {
                 worksans: ['WorkSans', 'sans-serif'],
