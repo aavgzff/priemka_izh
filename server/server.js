@@ -28,6 +28,37 @@ const ALLOWED_CATEGORIES = [
   'entrances',
 ]
 
+const DEV_ORIGINS = [
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'http://192.168.0.169:5173',
+  'http://192.168.1.169:5173',
+]
+
+function buildAllowedOrigins() {
+  const fromEnv = [process.env.CLIENT_ORIGIN, process.env.SITE_URL]
+    .filter(Boolean)
+    .flatMap((value) => value.split(','))
+    .map((value) => value.trim().replace(/\/$/, ''))
+    .filter(Boolean)
+
+  const withWww = fromEnv.flatMap((origin) => {
+    try {
+      const url = new URL(origin)
+      if (url.hostname.startsWith('www.')) {
+        return [origin, `${url.protocol}//${url.hostname.slice(4)}`]
+      }
+      return [origin, `${url.protocol}//www.${url.hostname}`]
+    } catch {
+      return [origin]
+    }
+  })
+
+  return [...new Set([...DEV_ORIGINS, ...withWww])]
+}
+
+const allowedOrigins = buildAllowedOrigins()
+
 fs.mkdirSync(DATA_DIR, { recursive: true })
 fs.mkdirSync(UPLOADS_DIR, { recursive: true })
 if (!fs.existsSync(PROJECTS_FILE)) {
@@ -35,12 +66,13 @@ if (!fs.existsSync(PROJECTS_FILE)) {
 }
 
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'http://127.0.0.1:5173',
-    'http://192.168.0.169:5173',
-    'http://192.168.1.169:5173',
-  ],
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true)
+      return
+    }
+    callback(null, false)
+  },
   methods: ['GET', 'POST', 'DELETE'],
   credentials: true,
 }))
